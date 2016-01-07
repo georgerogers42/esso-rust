@@ -1,0 +1,4 @@
+[package]
+name = "esso-rust"
+version = "0.1.0"
+authors = ["George Rogers <grogers385@gmail.com>"]
