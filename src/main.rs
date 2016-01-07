@@ -6,10 +6,10 @@ extern crate staticfile;
 extern crate handlebars_iron as hbs;
 extern crate rustc_serialize;
 
+use std::env::var;
 mod handlers;
 
-use iron::prelude::*;
-
 fn main() {
-    Iron::new(handlers::esso()).http("localhost:8080").unwrap();
+    let bind_addr = format!("0.0.0.0:{}", var("PORT").unwrap_or("8080".to_string()));
+    handlers::start(&bind_addr);
 }

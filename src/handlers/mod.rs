@@ -33,3 +33,6 @@ pub fn esso() -> App {
     return full;
 }
 
+pub fn start(bind_addr: &str) {
+    Iron::new(handlers::esso()).http(bind_addr).unwrap();
+}
