@@ -1,18 +1,19 @@
-use iron;
-use iron::prelude::*;
 use hbs;
 use std::path::Path;
 use std::collections::HashMap;
 
-use rustc_serialize::json::Json;
+use iron;
+use iron::prelude::*;
 use router::Router;
 use mount::Mount;
 use staticfile::Static;
+use params::*;
 
-fn hello(r: &mut Request) -> IronResult<Response> {
-    let who = r
+fn hello(req: &mut Request) -> IronResult<Response> {
+    let params = req.get_ref::<Params>().unwrap();
+    let who = params.get("who").map(|x| { String::from_value(x).unwrap() }).unwrap_or("World".to_string());
     let mut data = HashMap::new();
-    data.insert("who", 
+    data.insert("who".to_string(), who);
     let resp = Response::with((iron::status::Ok, hbs::Template::new("hello", data)));
     Ok(resp)
 }
@@ -34,5 +35,5 @@ pub fn esso() -> App {
 }
 
 pub fn start(bind_addr: &str) {
-    Iron::new(handlers::esso()).http(bind_addr).unwrap();
+    Iron::new(esso()).http(bind_addr).unwrap();
 }
