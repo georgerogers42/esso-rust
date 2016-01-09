@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::io;
 use std::io::{Read, BufRead, BufReader};
 use std::fs::File;
@@ -39,7 +40,7 @@ impl json::ToJson for Article {
     }
 }
 
-pub fn load_article(fname: &str) -> io::Result<Article> {
+pub fn load_article(fname: &PathBuf) -> io::Result<Article> {
     let file = try!(File::open(fname));
     let mut rdr = BufReader::new(file);
     let mut mpara = String::new();
@@ -51,7 +52,12 @@ pub fn load_article(fname: &str) -> io::Result<Article> {
         }
         mpara.push_str(&line);
     }
-    let meta = json::decode(&mpara).unwrap();
+    let meta = try! {
+        match json::decode(&mpara) {
+            Ok(v) => Ok(v),
+            Err(e) => Err(io::Error::new(io::ErrorKind::Other, e))
+        }
+    };
     let mut contents = String::new();
     try!(rdr.read_to_string(&mut contents));
     Ok(Article { meta: meta, contents: contents })
@@ -60,9 +66,14 @@ pub fn load_article(fname: &str) -> io::Result<Article> {
 pub fn load_articles(pat: &str) -> Vec<Article> {
     let mut articles = vec![];
     for path in glob(pat).unwrap() {
-        match load_article(path.unwrap().to_str().unwrap()) {
-            Ok(art) => {
-                articles.push(art);
+        match path {
+            Ok(p) => {
+                match load_article(&p) {
+                    Ok(art) => {
+                        articles.push(art);
+                    }, Err(_) => {
+                    }
+                }
             }, Err(_) => {
             }
         }

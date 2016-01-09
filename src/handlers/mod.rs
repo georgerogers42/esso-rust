@@ -31,8 +31,7 @@ pub type App = Mount;
 
 pub fn esso() -> App {
     let mut routes = Router::new();
-    let mut articles = load_articles("articles/*.html");
-    articles.sort_by(|a, b| { a.meta.posted.cmp(&b.meta.posted) });
+    let articles = load_articles("./articles/*.html");
     {
         let avec = articles.clone();
         let amap = articles_map(&avec);
