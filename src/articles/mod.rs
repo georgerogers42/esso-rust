@@ -69,3 +69,11 @@ pub fn load_articles(pat: &str) -> Vec<Article> {
     }
     articles
 }
+
+pub fn articles_map(articles: &Vec<Article>) -> HashMap<String, Article> {
+    let mut amap = HashMap::new();
+    for article in articles {
+        amap.insert(article.meta.slug.clone(), article.clone());
+    }
+    amap
+}
