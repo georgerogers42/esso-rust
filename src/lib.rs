@@ -7,8 +7,8 @@ extern crate staticfile;
 extern crate handlebars_iron as hbs;
 extern crate rustc_serialize;
 
-mod articles;
-mod handlers;
+pub mod articles;
+pub mod handlers;
 
 pub fn start(bind_addr: &str) {
     println!("Starting on: {}", bind_addr);

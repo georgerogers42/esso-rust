@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Esso</title>
+	</head>
+	<body>
+		<h1 class="masthead">Esso</h1>
+		<div class="articles">
+			<div class="article">
+				<h1 class="article-title">{{ article.meta.title }}</h1>
+				<h2 class="article-info">{{ article.meta.author }}&mdash;{{ article.meta.posted }}</h2>
+				<div class="article-contents">
+					{{ article.contents }}
+				</div>
+			</div>
+			{{/each}}
+		</div>
+	</body>
+</html>
