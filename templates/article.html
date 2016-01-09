@@ -1,19 +1,20 @@
 <!doctype html>
 <html>
 	<head>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:900,900italic|Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/static/style.css">
 		<title>Esso</title>
 	</head>
 	<body>
-		<h1 class="masthead">Esso</h1>
+		<h1 class="masthead"><a href="/">Esso</a></h1>
 		<div class="articles">
 			<div class="article">
-				<h1 class="article-title">{{ article.meta.title }}</h1>
+				<h1 class="article-title"><a href="/article/{{ article.meta.slug }}">{{ article.meta.title }}</a></h1>
 				<h2 class="article-info">{{ article.meta.author }}&mdash;{{ article.meta.posted }}</h2>
 				<div class="article-contents">
 					{{ article.contents }}
 				</div>
 			</div>
-			{{/each}}
 		</div>
 	</body>
 </html>

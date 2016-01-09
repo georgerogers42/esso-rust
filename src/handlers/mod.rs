@@ -31,11 +31,12 @@ pub type App = Mount;
 
 pub fn esso() -> App {
     let mut routes = Router::new();
-    let articles = load_articles("./articles/*.html");
+    let mut articles = load_articles("./articles/*.html");
+    articles.sort_by(|b, a| { a.meta.title.cmp(&b.meta.title) });
     {
         let avec = articles.clone();
         let amap = articles_map(&avec);
-        routes.get("/:slug", move |req: &mut Request| {
+        routes.get("/article/:slug", move |req: &mut Request| {
             article_h(req, &avec, &amap)
         });
     }
