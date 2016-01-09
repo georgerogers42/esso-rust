@@ -7,13 +7,12 @@ use iron::prelude::*;
 use router::Router;
 use mount::Mount;
 use staticfile::Static;
-use params::*;
 
-fn hello(req: &mut Request) -> IronResult<Response> {
-    let params = req.get_ref::<Params>().unwrap();
-    let who = params.get("who").map(|x| { String::from_value(x).unwrap() }).unwrap_or("World".to_string());
+use articles::*;
+
+fn articles_h(_req: &mut Request, articles: &Vec<Article>) -> IronResult<Response> {
     let mut data = HashMap::new();
-    data.insert("who".to_string(), who);
+    data.insert("articles".to_string(), articles.clone());
     let resp = Response::with((iron::status::Ok, hbs::Template::new("hello", data)));
     Ok(resp)
 }
@@ -22,7 +21,12 @@ pub type App = Mount;
 
 pub fn esso() -> App {
     let mut routes = Router::new();
-    routes.get("/", hello);
+    {
+        let articles = load_articles("articles/*.html");
+        routes.get("/", move |req: &mut Request| {
+            articles_h(req, &articles)
+        });
+    }
     let mut app = Chain::new(routes);
     let mut hb = hbs::HandlebarsEngine::new2();
     hb.add(Box::new(hbs::DirectorySource::new("templates/", ".html")));

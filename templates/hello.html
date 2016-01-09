@@ -1,9 +1,20 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Hello {{ who }}!</title>
+		<title>Esso</title>
 	</head>
 	<body>
-		<h1>Hello {{ who }}!</h1>
+		<h1 class="masthead">Esso</h1>
+		<div class="articles">
+			{{#each articles}}
+			<div class="article">
+				<h1 class="article-title">{{ meta.title }}</h1>
+				<h2 class="article-info">{{ meta.author }}&mdash;{{ meta.posted }}</h2>
+				<div class="article-contents">
+					{{ contents }}
+				</div>
+			</div>
+			{{/each}}
+		</div>
 	</body>
 </html>
