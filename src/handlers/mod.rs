@@ -32,7 +32,7 @@ pub type App = Mount;
 pub fn esso() -> App {
     let mut routes = Router::new();
     let mut articles = load_articles("./articles/*.html");
-    articles.sort_by(|b, a| { a.meta.title.cmp(&b.meta.title) });
+    articles.sort_by(|a, b| { a.meta.title.cmp(&b.meta.title) });
     {
         let avec = articles.clone();
         let amap = articles_map(&avec);
