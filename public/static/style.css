@@ -32,3 +32,24 @@ p {
 a {
     color: #000;
 }
+
+th.city {
+	font-size: 10mm;
+	width: 100mm;
+}
+
+table.subtable {
+	margin-top: 10mm;
+	border-left: 1px solid;
+}
+
+table.subtable th, table.subtable td {
+	width: 50mm;
+}
+
+table.subtable td {
+	text-align: right;
+}
+table.subtable th {
+	text-align: right;
+}
