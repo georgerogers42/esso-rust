@@ -10,10 +10,10 @@
 		<div class="articles">
 			{{#each articles}}
 			<div class="article">
-				<h1 class="article-title"><a href="/article/{{ meta.slug }}">{{ meta.title }}</a></h1>
-				<h2 class="article-info">{{ meta.author }}&mdash;{{ meta.posted }}</h2>
+				<h1 class="article-title"><a href="/article/{{ meta.slug }}">{{{ meta.title }}}</a></h1>
+				<h2 class="article-info">{{{ meta.author }}}&mdash;{{{ meta.posted }}}</h2>
 				<div class="article-contents">
-					{{ contents }}
+					{{{ contents }}}
 				</div>
 			</div>
 			{{/each}}
